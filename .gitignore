@@ -4,6 +4,7 @@ reports/
 downloads/
 allure-results/
 allure-report/
+.allure/
 surefire-reports/
 generated-sources/
 generated-test-sources/
