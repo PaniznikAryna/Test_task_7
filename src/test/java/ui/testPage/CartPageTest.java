@@ -49,7 +49,7 @@ public class CartPageTest extends BaseTest {
 		cartPage.getCartItems().shouldHave(CollectionCondition.size(2));
 
 		cartPage.removeItem()
-				.getCartItems().shouldHave(CollectionCondition.size(0));
+				.getCartItems().shouldHave(CollectionCondition.size(1));
 	}
 
 }
