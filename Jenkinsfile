@@ -30,7 +30,7 @@ pipeline {
 
         stage('Generate Allure Report') {
             steps {
-                powershell 'allure generate target/allure-results -o target/allure-report --clean'
+                powershell '"C:\\allure\\bin\\allure.bat" generate target/allure-results -o target/allure-report --clean'
             }
         }
 
