@@ -28,11 +28,11 @@ pipeline {
             }
         }
 
-        stage('Generate Allure Report') {
-            steps {
-                powershell '"C:\\allure\\bin\\allure.bat" generate target/allure-results -o target/allure-report --clean'
-            }
-        }
+       stage('Generate Allure Report') {
+           steps {
+               powershell 'cmd /c "C:\\allure\\bin\\allure.bat generate target\\allure-results -o target\\allure-report --clean"'
+           }
+       }
 
         stage('Publish Allure Report') {
             steps {
