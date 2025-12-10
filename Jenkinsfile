@@ -22,7 +22,29 @@ pipeline {
                     if (params.TEST_TYPE == 'API') {
                         powershell 'mvn clean test -Dtest="PetTest.*,BaseTest.*"'
                     } else if (params.TEST_TYPE == 'UI') {
-                        powershell 'mvn clean test -Dtest="SortAssertions.*,AuthorizationPageTest.*,CartPageTest.*,CatalogPageTest.*,CheckoutPageTest.*,BaseTest.*"'
+                        withCredentials([
+                            string(credentialsId: 'VALID_LOGIN', variable: 'VALID_LOGIN'),
+                            string(credentialsId: 'INVALID_LOGIN', variable: 'INVALID_LOGIN'),
+                            string(credentialsId: 'PASSWORD', variable: 'PASSWORD'),
+                            string(credentialsId: 'BASE_URL', variable: 'BASE_URL'),
+                            string(credentialsId: 'FIRST_NAME', variable: 'FIRST_NAME'),
+                            string(credentialsId: 'LAST_NAME', variable: 'LAST_NAME'),
+                            string(credentialsId: 'POSTAL_CODE', variable: 'POSTAL_CODE')
+                        ]) {
+                            powershell """
+                              @'
+                                VALID_LOGIN=$env:VALID_LOGIN
+                                INVALID_LOGIN=$env:INVALID_LOGIN
+                                PASSWORD=$env:PASSWORD
+                                BASE_URL=$env:BASE_URL
+                                FIRST_NAME=$env:FIRST_NAME
+                                LAST_NAME=$env:LAST_NAME
+                                POSTAL_CODE=$env:POSTAL_CODE
+                                '@ | Out-File -Encoding UTF8 .env
+
+                              mvn clean test -Dtest="SortAssertions.*,AuthorizationPageTest.*,CartPageTest.*,CatalogPageTest.*,CheckoutPageTest.*,BaseTest.*"
+                            """
+                        }
                     }
                 }
             }
