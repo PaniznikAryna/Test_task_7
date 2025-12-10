@@ -31,20 +31,17 @@ pipeline {
                             string(credentialsId: 'LAST_NAME', variable: 'LAST_NAME'),
                             string(credentialsId: 'POSTAL_CODE', variable: 'POSTAL_CODE')
                         ]) {
-                            powershell '''
-$envContent = @"
-VALID_LOGIN=$env:VALID_LOGIN
-INVALID_LOGIN=$env:INVALID_LOGIN
-PASSWORD=$env:PASSWORD
-BASE_URL=$env:BASE_URL
-FIRST_NAME=$env:FIRST_NAME
-LAST_NAME=$env:LAST_NAME
-POSTAL_CODE=$env:POSTAL_CODE
-"@
-$envContent | Out-File -Encoding UTF8 .env
+                           powershell '''
+                           Set-Content -Path .env -Value "VALID_LOGIN=$env:VALID_LOGIN"
+                           Add-Content -Path .env -Value "INVALID_LOGIN=$env:INVALID_LOGIN"
+                           Add-Content -Path .env -Value "PASSWORD=$env:PASSWORD"
+                           Add-Content -Path .env -Value "BASE_URL=$env:BASE_URL"
+                           Add-Content -Path .env -Value "FIRST_NAME=$env:FIRST_NAME"
+                           Add-Content -Path .env -Value "LAST_NAME=$env:LAST_NAME"
+                           Add-Content -Path .env -Value "POSTAL_CODE=$env:POSTAL_CODE"
 
-mvn clean test -Dtest="SortAssertions.*,AuthorizationPageTest.*,CartPageTest.*,CatalogPageTest.*,CheckoutPageTest.*,BaseTest.*"
-'''
+                           mvn clean test -Dtest="SortAssertions.*,AuthorizationPageTest.*,CartPageTest.*,CatalogPageTest.*,CheckoutPageTest.*,BaseTest.*"
+                           '''
                         }
                     }
                 }
