@@ -20,9 +20,9 @@ pipeline {
             steps {
                 script {
                     if (params.TEST_TYPE == 'API') {
-                        sh 'mvn clean test -Dtest="PetTest.*,BaseTest.*"'
+                        powershell 'mvn clean test -Dtest="PetTest.*,BaseTest.*"'
                     } else if (params.TEST_TYPE == 'UI') {
-                        sh 'mvn clean test -Dtest="SortAssertions.*,AuthorizationPageTest.*,CartPageTest.*,CatalogPageTest.*,CheckoutPageTest.*,BaseTest.*"'
+                        powershell 'mvn clean test -Dtest="SortAssertions.*,AuthorizationPageTest.*,CartPageTest.*,CatalogPageTest.*,CheckoutPageTest.*,BaseTest.*"'
                     }
                 }
             }
@@ -30,7 +30,7 @@ pipeline {
 
         stage('Generate Allure Report') {
             steps {
-                sh 'allure generate target/allure-results -o target/allure-report --clean'
+                powershell 'allure generate target/allure-results -o target/allure-report --clean'
             }
         }
 
