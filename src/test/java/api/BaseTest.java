@@ -1,13 +1,12 @@
 package api;
 
 import io.qameta.allure.restassured.AllureRestAssured;
-import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
+import io.restassured.RestAssured;
 
 public class BaseTest {
-    @BeforeAll
-    static void setup() {
-        RestAssured.baseURI = "https://petstore.swagger.io/v2";
-        RestAssured.filters(new AllureRestAssured());
-    }
+	@BeforeAll
+	static void setup() {
+		RestAssured.filters(new AllureRestAssured());
+	}
 }
