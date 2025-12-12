@@ -1,24 +1,28 @@
 package ui;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.Step;
-import io.qameta.allure.selenide.AllureSelenide;
+import io.github.cdimascio.dotenv.Dotenv;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import ui.api.task.pages.AuthorizationPage;
+import ui.api.task.pages.CartPage;
+import ui.api.task.pages.CatalogPage;
+import ui.api.task.pages.CheckoutPage;
 
 public class BaseTest {
+	protected static Dotenv dotenv;
+	protected AuthorizationPage authorizationPage;
+	protected CatalogPage catalogPage;
+	protected CartPage cartPage;
+	protected CheckoutPage checkoutPage;
+
 	@BeforeAll
 	static void setup() {
-		Configuration.browser = "chrome";
-		Configuration.browserSize = "1920x1080";
-		Configuration.screenshots = true;
-		Configuration.savePageSource = false;
-		SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
+		dotenv = Dotenv.load();
+		Browser.init();
 	}
 
-	@Step("Open website by url")
-	public void openingTheWebsite(String url) {
-		Selenide.open(url);
+	@AfterAll
+	static void tearDown() {
+		Browser.close();
 	}
 }

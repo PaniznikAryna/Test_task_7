@@ -1,7 +1,6 @@
 package ui.testPage;
 
 import com.codeborne.selenide.CollectionCondition;
-import io.github.cdimascio.dotenv.Dotenv;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.junit5.AllureJunit5;
@@ -10,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import ui.BaseTest;
+import ui.Browser;
 import ui.api.task.pages.AuthorizationPage;
 import ui.api.task.pages.CartPage;
 import ui.api.task.pages.CatalogPage;
@@ -18,16 +18,10 @@ import ui.api.task.pages.CatalogPage;
 @ExtendWith(AllureJunit5.class)
 @DisplayName("Cart page testing")
 public class CartPageTest extends BaseTest {
-	AuthorizationPage authorizationPage;
-	Dotenv dotenv;
-	CatalogPage catalogPage;
-	CartPage cartPage;
 
 	@BeforeEach
 	void setUp() {
-		dotenv = Dotenv.load();
-		openingTheWebsite(dotenv.get("BASE_URL"));
-
+		Browser.openingTheWebsite(dotenv.get("BASE_URL"));
 		authorizationPage = new AuthorizationPage();
 		authorizationPage.authorization(dotenv.get("VALID_LOGIN"), dotenv.get("PASSWORD"));
 
@@ -42,8 +36,8 @@ public class CartPageTest extends BaseTest {
 		catalogPage.goToCartPage();
 		cartPage.getCartItems().shouldHave(CollectionCondition.size(0));
 
-		cartPage.goToCatalogPage();
-		catalogPage.addItemToCart()
+		cartPage.goToCatalogPage()
+				.addItemToCart()
 				.addItemToCart()
 				.goToCartPage();
 		cartPage.getCartItems().shouldHave(CollectionCondition.size(2));
@@ -51,5 +45,4 @@ public class CartPageTest extends BaseTest {
 		cartPage.removeItem()
 				.getCartItems().shouldHave(CollectionCondition.size(1));
 	}
-
 }

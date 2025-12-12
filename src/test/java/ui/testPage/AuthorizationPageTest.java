@@ -1,6 +1,5 @@
 package ui.testPage;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.junit5.AllureJunit5;
@@ -9,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import ui.BaseTest;
+import ui.Browser;
 import ui.api.task.pages.AuthorizationPage;
 
 import java.util.Objects;
@@ -20,15 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(AllureJunit5.class)
 @DisplayName("Authorization page testing")
 public class AuthorizationPageTest extends BaseTest {
-	AuthorizationPage authorizationPage;
-	BaseTest baseTest;
-	Dotenv dotenv;
 
 	@BeforeEach
 	void setUp() {
-		dotenv = Dotenv.load();
-		baseTest = new BaseTest();
-		baseTest.openingTheWebsite(dotenv.get("BASE_URL"));
+		Browser.openingTheWebsite(dotenv.get("BASE_URL"));
 		authorizationPage = new AuthorizationPage();
 	}
 

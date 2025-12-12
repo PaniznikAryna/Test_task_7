@@ -1,6 +1,5 @@
 package ui.testPage;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.junit5.AllureJunit5;
@@ -9,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import ui.BaseTest;
+import ui.Browser;
 import ui.api.task.pages.AuthorizationPage;
 import ui.api.task.pages.CatalogPage;
 import ui.assertions.SortAssertions;
@@ -17,15 +17,10 @@ import ui.assertions.SortAssertions;
 @Epic("Catalog page")
 @DisplayName("Catalog page testing")
 public class CatalogPageTest extends BaseTest {
-	AuthorizationPage authorizationPage;
-	Dotenv dotenv;
-	CatalogPage catalogPage = new CatalogPage();
 
 	@BeforeEach
 	void setUp() {
-		dotenv = Dotenv.load();
-		openingTheWebsite(dotenv.get("BASE_URL"));
-
+		Browser.openingTheWebsite(dotenv.get("BASE_URL"));
 		authorizationPage = new AuthorizationPage();
 		authorizationPage.authorization(dotenv.get("VALID_LOGIN"), dotenv.get("PASSWORD"));
 

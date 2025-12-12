@@ -17,7 +17,7 @@ public class AuthorizationPage {
 	private final SelenideElement errorMessage = $x(ERROR_MESSAGE);
 
 	@Step("Entering your username and password in the authorization form")
-	public AuthorizationPage authorization(String login, String password){
+	public AuthorizationPage authorization(String login, String password) {
 		$(ID_USER_NAME_INPUT).sendKeys(login);
 		$(ID_PASSWORD_INPUT).sendKeys(password);
 		$(ID_LOGIN_BUTTON).click();
@@ -28,4 +28,5 @@ public class AuthorizationPage {
 	public AuthorizationPage shouldSeeErrorMessage() {
 		errorMessage.shouldBe(visible);
 		return this;
-	}}
+	}
+}
