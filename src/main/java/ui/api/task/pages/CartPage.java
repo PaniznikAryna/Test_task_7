@@ -15,21 +15,21 @@ public class CartPage {
 	private static final String CART_ITEMS = ".cart_item";
 
 	@Step("Removing an item from cart")
-	public CartPage removeItem(){
+	public CartPage removeItem() {
 		$(byText(TEXT_REMOVE_ITEM)).click();
 		return this;
 	}
 
 	@Step("Clicking on the Checkout button")
-	public CartPage clickCheckoutButton(){
+	public CartPage clickCheckoutButton() {
 		$(ID_CHECKOUT_BUTTON).click();
 		return this;
 	}
 
 	@Step("Go to the Catalog page")
-	public CartPage goToCatalogPage(){
+	public CatalogPage goToCatalogPage() {
 		$(ID_CONTINUE_SHOPPING_BUTTON).click();
-		return this;
+		return new CatalogPage();
 	}
 
 	@Step("Get all items in cart")

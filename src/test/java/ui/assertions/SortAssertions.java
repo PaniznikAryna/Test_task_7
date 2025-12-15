@@ -5,6 +5,7 @@ import com.codeborne.selenide.ElementsCollection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SortAssertions {

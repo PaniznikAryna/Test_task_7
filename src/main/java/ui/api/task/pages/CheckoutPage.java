@@ -17,7 +17,7 @@ public class CheckoutPage {
 	public static final String TEXT_CHECKOUT_COMPLETE = "Checkout: Complete!";
 
 	@Step("Filling out the form for sending an item")
-	public CheckoutPage sendDataForm(String firstName, String lastName, String postalCode){
+	public CheckoutPage sendDataForm(String firstName, String lastName, String postalCode) {
 		$(ID_FIRST_NAME_INPUT).sendKeys(firstName);
 		$(ID_LAST_NAME_INPUT).sendKeys(lastName);
 		$(ID_POSTAL_CODE_INPUT).sendKeys(postalCode);
@@ -25,31 +25,31 @@ public class CheckoutPage {
 	}
 
 	@Step("Clicking on the Continue button")
-	public CheckoutPage clickContinueButton(){
+	public CheckoutPage clickContinueButton() {
 		$(ID_CONTINUE_BUTTON).click();
 		return this;
 	}
 
 	@Step("Clicking on the Finish button")
-	public CheckoutPage clickFinishButton(){
+	public CheckoutPage clickFinishButton() {
 		$(ID_FINISH_BUTTON).click();
 		return this;
 	}
 
 	@Step("Checking the visibility of the text Payment Information")
-	public CheckoutPage shouldSeeInformationAboutItem(){
+	public CheckoutPage shouldSeeInformationAboutItem() {
 		$(byText(TEXT_PAYMENT_INFORMATION)).shouldBe(visible);
 		return this;
 	}
 
 	@Step("Checking the visibility of the text Thank you for your order!")
-	public CheckoutPage shouldSeeThanksForOrder(){
+	public CheckoutPage shouldSeeThanksForOrder() {
 		$(byText(TEXT_THANK_YOU_FOR_YOUR_ORDER)).shouldBe(visible);
 		return this;
 	}
 
 	@Step("Checking the visibility of the text Checkout: Complete!")
-	public CheckoutPage shouldSeeCheckoutComplete(){
+	public CheckoutPage shouldSeeCheckoutComplete() {
 		$(byText(TEXT_CHECKOUT_COMPLETE)).shouldBe(visible);
 		return this;
 	}
