@@ -3,7 +3,9 @@ package api;
 import io.qameta.allure.restassured.AllureRestAssured;
 import org.junit.jupiter.api.BeforeAll;
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.Tag;
 
+@Tag("API")
 public class BaseTest {
 	@BeforeAll
 	static void setup() {

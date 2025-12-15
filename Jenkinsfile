@@ -9,6 +9,11 @@ pipeline {
         )
     }
 
+    environment {
+        ALLURE_LAUNCH_NAME = "PetStore Tests"
+        ALLURE_LAUNCH_TAGS = "${params.TEST_TYPE}"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -20,7 +25,7 @@ pipeline {
             steps {
                 script {
                     if (params.TEST_TYPE == 'API') {
-                        powershell 'mvn clean test -Dtest="PetTest.*,BaseTest.*"'
+                        powershell 'mvn clean test -Dgroups=API'
                     } else if (params.TEST_TYPE == 'UI') {
                         withCredentials([
                             string(credentialsId: 'VALID_LOGIN', variable: 'VALID_LOGIN'),
@@ -40,7 +45,7 @@ pipeline {
                            Add-Content -Path .env -Value "LAST_NAME=$env:LAST_NAME"
                            Add-Content -Path .env -Value "POSTAL_CODE=$env:POSTAL_CODE"
 
-                           mvn clean test -Dtest="SortAssertions.*,AuthorizationPageTest.*,CartPageTest.*,CatalogPageTest.*,CheckoutPageTest.*,BaseTest.*"
+                           mvn clean test -Dgroups=UI
                            '''
                         }
                     }
