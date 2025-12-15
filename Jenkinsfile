@@ -21,11 +21,11 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
+        stage('Run tests') {
             steps {
                 script {
                     if (params.TEST_TYPE == 'API') {
-                        powershell 'mvn clean test -Dgroups=API'
+                        bat "mvn clean test -PAPI"
                     } else if (params.TEST_TYPE == 'UI') {
                         withCredentials([
                             string(credentialsId: 'VALID_LOGIN', variable: 'VALID_LOGIN'),
@@ -36,32 +36,27 @@ pipeline {
                             string(credentialsId: 'LAST_NAME', variable: 'LAST_NAME'),
                             string(credentialsId: 'POSTAL_CODE', variable: 'POSTAL_CODE')
                         ]) {
-                           powershell '''
-                           Set-Content -Path .env -Value "VALID_LOGIN=$env:VALID_LOGIN"
-                           Add-Content -Path .env -Value "INVALID_LOGIN=$env:INVALID_LOGIN"
-                           Add-Content -Path .env -Value "PASSWORD=$env:PASSWORD"
-                           Add-Content -Path .env -Value "BASE_URL=$env:BASE_URL"
-                           Add-Content -Path .env -Value "FIRST_NAME=$env:FIRST_NAME"
-                           Add-Content -Path .env -Value "LAST_NAME=$env:LAST_NAME"
-                           Add-Content -Path .env -Value "POSTAL_CODE=$env:POSTAL_CODE"
+                            bat '''
+                            echo VALID_LOGIN=%VALID_LOGIN%> .env
+                            echo INVALID_LOGIN=%INVALID_LOGIN%>> .env
+                            echo PASSWORD=%PASSWORD%>> .env
+                            echo BASE_URL=%BASE_URL%>> .env
+                            echo FIRST_NAME=%FIRST_NAME%>> .env
+                            echo LAST_NAME=%LAST_NAME%>> .env
+                            echo POSTAL_CODE=%POSTAL_CODE%>> .env
 
-                           mvn clean test -Dgroups=UI
-                           '''
+                            mvn clean test -PUI
+                            '''
                         }
                     }
                 }
             }
-        }
-
-        stage('Generate Allure Report') {
-            steps {
-                powershell 'cmd /c "C:\\Users\\arish\\scoop\\shims\\allure.cmd generate target\\allure-results -o target\\allure-report --clean"'
-            }
-        }
-
-        stage('Publish Allure Report') {
-            steps {
-                allure results: [[path: 'target/allure-results']]
+            post {
+                always {
+                    junit 'target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts(artifacts: 'target/allure-results/**', allowEmptyArchive: true)
+                    allure(results: [[path: 'target/allure-results']])
+                }
             }
         }
     }
