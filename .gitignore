@@ -55,6 +55,7 @@ build/reports/tests/**/*.jpeg
 build/reports/tests/**/*.webp
 
 ajcore.*.txt
+.allure/
 
 .env
 local.properties
