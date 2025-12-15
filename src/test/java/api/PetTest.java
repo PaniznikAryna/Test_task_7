@@ -9,6 +9,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qameta.allure.junit5.AllureJunit5;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -21,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Feature("Swagger with API for PetStore")
 @DisplayName("Api tests for PetStore")
 @ExtendWith(AllureJunit5.class)
+@Tag("API")
 public class PetTest extends BaseTest {
 
 	private final PetClient petClient = new PetClient();

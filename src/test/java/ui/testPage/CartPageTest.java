@@ -6,6 +6,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.junit5.AllureJunit5;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import ui.BaseTest;
@@ -17,6 +18,7 @@ import ui.api.task.pages.CatalogPage;
 @Epic("Cart page")
 @ExtendWith(AllureJunit5.class)
 @DisplayName("Cart page testing")
+@Tag("UI")
 public class CartPageTest extends BaseTest {
 
 	@BeforeEach

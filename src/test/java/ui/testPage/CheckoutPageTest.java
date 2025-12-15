@@ -5,6 +5,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.junit5.AllureJunit5;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import ui.BaseTest;
@@ -17,6 +18,7 @@ import ui.api.task.pages.CheckoutPage;
 @ExtendWith(AllureJunit5.class)
 @Epic("Checkout page")
 @DisplayName("Checkout page testing")
+@Tag("UI")
 public class CheckoutPageTest extends BaseTest {
 
 	@BeforeEach
